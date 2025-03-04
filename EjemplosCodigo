@@ -1,0 +1,283 @@
+1. Nombres simples
+int ñhfd-ljhfd;
+
+int contador1;
+
+
+
+2. Nombres pronunciables
+String X2s1;
+
+String cad1main;
+
+
+
+3. Nombres accesibles
+for (a in 0 until h) {
+
+for (dia in 0 until semana) {
+
+
+
+4. Diferenciar nombres según elemento.
+int a;
+public void con1() {
+
+int numero;
+public void contar() {
+
+
+
+5. Conceptos similares
+String array1;
+String lista2;
+
+String lista1;
+String lista2;
+
+
+
+6. Funciones cortas
+public class Circulo {
+    public static double calcularArea(double radio) {
+        if (radio <0) {
+            System.out.println("El radio no puede ser negativo.");
+            return -1;
+        }
+        double pi = 3.14159265358979323846;       
+        double radioCuadrado = radio * radio;
+        double area = pi * radioCuadrado;
+        System.out.println("Se está calculando el área de un círculo con radio "+ radio);
+        System.out.println("El área del círculo es: "+ area);
+        return area;
+    }
+    public static void main(String[] args) {
+        double resultado = calcularArea(5);
+    }
+}
+
+public class Circulo {
+    public static double calcularArea(double radio) {
+        if (radio <0) return -1;
+        return Math.PI * radio * radio;
+    }
+    public static void main(String[] args) {
+        double resultado = calcularArea(5);
+    }
+}
+
+
+
+7. Simplicidad, solo una única cosa.
+public class GestorArchivos {
+    public static void guardarYRegistrarArchivo(String contenido, String ruta) {
+        try {
+            // Abrir archivo
+            FileWriter writer = new FileWriter(ruta);
+            writer.write(contenido);
+            writer.close();
+            String log = "Archivo guardado en "+ ruta;
+            Database.registrarLog(log);
+            Notificaciones.enviarNotificacion("El archivo se ha guardado correctamente.");            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void main(String[] args) {
+        guardarYRegistrarArchivo("Este es el contenido del archivo.", "ruta/del/archivo.txt");
+    }
+}
+
+public class GestorArchivos {
+    public static void guardarArchivo(String contenido, String ruta) {
+        try {
+            FileWriter writer = new FileWriter(ruta);
+            writer.write(contenido);
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void registrarLog(String mensaje) {
+        Database.registrarLog(mensaje);
+    }
+    public static void enviarNotificacion(String mensaje) {
+        Notificaciones.enviarNotificacion(mensaje);
+    }
+    public static void main(String[] args) {
+        String contenido = "Este es el contenido del archivo.";
+        String ruta = "ruta/del/archivo.txt";        
+     guardarArchivo(contenido, ruta);        
+        registrarLog("Archivo guardado en "+ ruta);        
+        enviarNotificacion("El archivo se ha guardado correctamente.");
+    }
+}
+
+
+
+8. Evitar exceso de switch/when.
+function procesarComando(comando) { switch(comando) { case 'inicio': return 'Iniciando el sistema'; case 'detener': return 'Deteniendo el sistema'; case 'pausar': return 'Pausando el sistema'; case 'reanudar': return 'Reanudando el sistema'; case 'reiniciar': return 'Reiniciando el sistema'; case 'salir': return 'Saliendo del sistema'; case 'estado': return 'Mostrando estado'; case 'actualizar': return 'Actualizando sistema'; case 'configurar': return 'Configurando sistema'; case 'ayuda': return 'Mostrando ayuda'; default: return 'Comando no reconocido'; } }
+
+function procesarComando(comando) { const comandos = { 'inicio': 'Iniciando el sistema', 'detener': 'Deteniendo el sistema', 'pausar': 'Pausando el sistema', 'reanudar': 'Reanudando el sistema', 'reiniciar': 'Reiniciando el sistema', 'salir': 'Saliendo del sistema', 'estado': 'Mostrando estado', 'actualizar': 'Actualizando sistema', 'configurar': 'Configurando sistema', 'ayuda': 'Mostrando ayuda'}; return comandos[comando] || 'Comando no reconocido'; }
+
+
+
+9. Pocos argumentos en funicones
+function calcularPrecio(base, descuento, impuesto, envio, metodoPago) { let precioFinal = base; if (descuento) { precioFinal -= base * descuento; }  precioFinal += base * impuesto; precioFinal += envio; if (metodoPago === "credito") { precioFinal *= 1.05; } return precioFinal; }
+
+function calcularPrecio({ base, descuento = 0, impuesto = 0, envio = 0, metodoPago = "efectivo"}) { let precioFinal = base; if (descuento) { precioFinal -= base * descuento; } precioFinal += base * impuesto; precioFinal += envio; if (metodoPago === "credito") { precioFinal *= 1.05; } return precioFinal; }
+
+
+
+10. Evita usar ‘flags’.
+function render(isDarkMode) { if (isDarkMode) {
+console.log("Renderizando en modo oscuro"); } else {
+
+
+console.log("Renderizando en modo claro"); } }
+function renderModoOscuro() { console.log("Renderizando en modo oscuro"); } function renderModoClaro() { console.log("Renderizando en modo claro"); }
+
+
+11. No uses ‘side effects’
+function obtenerProductosYGuardar() {  const productos = ['producto1', 'producto2', 'producto3']; (efecto colateral) guardarEnBaseDeDatos(productos); return productos; } function guardarEnBaseDeDatos(data) { console.log('Guardando datos en la base de datos...', data); }
+function obtenerProductos() {  return ['producto1', 'producto2', 'producto3']; }
+
+function guardarProductosEnBaseDeDatos(productos) { console.log('Guardando productos en la base de datos...', productos); }
+const productos = obtenerProductos();  guardarProductosEnBaseDeDatos(productos);
+
+
+
+12. No te repitas.
+
+public class DRYExample {
+    public static void main(String[] args) {
+        imprimirSaludo("Juan");
+        imprimirSaludo("María");
+        imprimirSaludo("Carlos");
+    }
+
+    public static void imprimirSaludo(String nombre) {
+        System.out.println("Hola, " + nombre + "! Bienvenido.");
+    }
+}
+
+
+
+13. Comentarios que mienten.
+public class Calculadora {
+    public static void main(String[] args) {
+        double resultado = sumar(10, 5); // Llamamos a la función para sumar dos números
+        System.out.println(resultado); // Imprimimos el resultado en pantalla
+    }
+    public static double sumar(double a, double b) {
+        return a - b; // Devuelve la suma de a y b
+    }
+}
+//resta, pero el comentario dice que suma
+    }
+    // Divide dos números (pero antes verificaba que el divisor no fuera cero)
+    public static double dividir(double a, double b) {
+        return a / b; // ERROR: Se eliminó la verificación de división por cero, pero el comentario sigue
+    }
+}
+
+public class Calculadora {
+    public static void main(String[] args) {
+        double precioTotal = calcularPrecioConImpuesto(100, 0.21);
+        System.out.println("Precio total con impuestos: " + precioTotal);
+    }
+    public static double calcularPrecioConImpuesto(double precioBase, double tasaImpuesto) {
+        return precioBase * (1 + tasaImpuesto);
+    }
+}
+
+
+
+14. Contenido autoexplicativo.
+public class Calculadora {
+    public static void main(String[] args) {
+        double resultadoSuma = sumar(10, 5);
+        double resultadoDivision = dividir(20, 4);
+        
+        System.out.println("Suma: " + resultadoSuma);
+        System.out.println("División: " + resultadoDivision);
+    }
+    // Esta función suma dos números
+    public static double sumar(double a, double b) {
+        return a - b; // ERROR: el código
+
+public class Calculadora {
+    public static void main(String[] args) {
+        double resultadoSuma = sumar(10, 5);
+        double resultadoDivision = dividir(20, 4);        
+        System.out.println("Suma: " + resultadoSuma);
+        System.out.println("División: " + resultadoDivision);
+    }
+    public static double sumar(double a, double b) {
+        return a + b;
+    }
+    public static double dividir(double a, double b) {
+        if (b == 0) {
+            throw new ArithmeticException("No se puede dividir por cero");
+        }
+        return a / b;
+    }
+}
+
+
+
+15. Comentarios necesarios.
+public class Calculadora {
+    public static void main(String[] args) {
+        double x = impuesto(100, 0.21); // Calcula el precio final sumando el IVA
+        System.out.println("Resultado: " + x);
+    }
+    // Calcula el total agregando el impuesto
+    public static double impuesto(double a, double b) {
+        return a * (1 + b);
+    }
+}
+    public static double dividir(double a, double b) {
+        // Si b es igual a 0, devuelve infinito
+        if (b == 0) {
+            return Double.POSITIVE_INFINITY;
+        }
+        // Si b no es 0, divide a entre b
+        return a / b;
+    }
+}
+
+import java.util.TimeZone;
+import java.util.Calendar;
+public class Ejemplo {
+    public static void main(String[] args) {
+        Calendar calendario = Calendar.getInstance();        
+        // Hack: En algunos dispositivos Android, la zona horaria puede no configurarse correctamente.
+        // Esto fuerza la zona horaria a UTC para evitar errores de conversión de fechas.
+        calendario.setTimeZone(TimeZone.getTimeZone("UTC"));        
+        System.out.println("Hora actual en UTC: " + calendario.getTime());
+    }
+}
+
+
+
+16. Los comentarios dicen qué hace el código, no cómo lo hace
+public class Calculadora {
+    public static void main(String[] args) {
+        double resultado = dividir(10, 0);
+        System.out.println("Resultado: " + resultado);
+    }
+public class Calculadora {
+    public static void main(String[] args) {
+        double resultado = dividir(10, 0);
+        System.out.println("Resultado: " + resultado);
+    }
+    public static double dividir(double a, double b) {
+        // Se devuelve Double.POSITIVE_INFINITY en lugar de lanzar una excepción
+        // porque este comportamiento es requerido para compatibilidad con versiones anteriores.
+        if (b == 0) {
+            return Double.POSITIVE_INFINITY;
+        }
+        return a / b;
+    }
+}
