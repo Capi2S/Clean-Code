@@ -1,0 +1,254 @@
+BLOQUE 4: OBJETOS Y ESTRUCTURAS DE DATOS
+
+17. Diferencias entre objetos y estructuras de datos
+Ejemplo de objeto:
+```java
+public class Persona {
+    private String nombre;
+    private int edad;
+
+    public Persona(String nombre, int edad) {
+        this.nombre = nombre;
+        this.edad = edad;
+    }
+
+    public String obtenerNombre() {
+        return nombre;
+    }
+
+    public int obtenerEdad() {
+        return edad;
+    }
+}
+```
+
+Ejemplo de estructura de datos:
+```java
+public class PersonaStruct {
+    public String nombre;
+    public int edad;
+}
+```
+
+18. La Ley de Demeter
+Ejemplo incorrecto:
+```java
+public void procesarPedido(Pedido pedido) {
+    String nombreCliente = pedido.getCliente().getNombre();
+    System.out.println("Procesando pedido de: " + nombreCliente);
+}
+```
+
+Ejemplo correcto:
+```java
+public void procesarPedido(Pedido pedido) {
+    System.out.println("Procesando pedido de: " + pedido.obtenerNombreCliente());
+}
+```
+
+BLOQUE 5: MANEJO DE ERRORES
+
+19. Usa excepciones en lugar de código de retorno
+Ejemplo incorrecto:
+```java
+public int dividir(int a, int b) {
+    if (b == 0) {
+        return -1; // Código de retorno
+    }
+    return a / b;
+}
+```
+
+Ejemplo correcto:
+```java
+public int dividir(int a, int b) throws ArithmeticException {
+    if (b == 0) {
+        throw new ArithmeticException("División por cero no permitida");
+    }
+    return a / b;
+}
+```
+
+20. Escribe primero el try-catch-finally
+```java
+try {
+    File archivo = new File("datos.txt");
+    Scanner lector = new Scanner(archivo);
+    while (lector.hasNextLine()) {
+        System.out.println(lector.nextLine());
+    }
+} catch (FileNotFoundException e) {
+    System.out.println("Archivo no encontrado");
+} finally {
+    System.out.println("Finalizando lectura de archivo");
+}
+```
+
+21. Usa excepciones unchecked
+Ejemplo incorrecto (Checked Exception):
+```java
+public void leerArchivo(String ruta) throws IOException {
+    File archivo = new File(ruta);
+    Scanner lector = new Scanner(archivo);
+}
+```
+
+Ejemplo correcto (Unchecked Exception):
+```java
+public void leerArchivo(String ruta) {
+    try {
+        File archivo = new File(ruta);
+        Scanner lector = new Scanner(archivo);
+    } catch (IOException e) {
+        throw new RuntimeException("Error al leer el archivo", e);
+    }
+}
+```
+
+22. No devuelvas Null
+Ejemplo incorrecto:
+```java
+public String obtenerNombre() {
+    return null;
+}
+```
+
+Ejemplo correcto:
+```java
+public Optional<String> obtenerNombre() {
+    return Optional.ofNullable(nombre);
+}
+```
+
+BLOQUE 6: TESTS UNITARIOS
+
+23. Las tres leyes del TDD
+Ejemplo:
+```java
+@Test
+public void testSumar() {
+    Calculadora calc = new Calculadora();
+    assertEquals(5, calc.sumar(2, 3));
+}
+```
+
+24. Mantén limpios los tests
+Ejemplo incorrecto:
+```java
+@Test
+public void testLargo() {
+    Calculadora calc = new Calculadora();
+    int resultado = calc.sumar(2, 3);
+    assertEquals(5, resultado);
+    int resultado2 = calc.sumar(4, 1);
+    assertEquals(5, resultado2);
+}
+```
+
+Ejemplo correcto:
+```java
+@Test
+public void testSumaDosMasTres() {
+    assertEquals(5, calc.sumar(2, 3));
+}
+
+@Test
+public void testSumaCuatroMasUno() {
+    assertEquals(5, calc.sumar(4, 1));
+}
+```
+
+25. Clean tests
+Ejemplo:
+```java
+@Test
+public void testDividir() {
+    assertThrows(ArithmeticException.class, () -> calc.dividir(10, 0));
+}
+```
+
+26. Un Assert por test
+Ejemplo incorrecto:
+```java
+@Test
+public void testMultiplicacion() {
+    assertEquals(6, calc.multiplicar(2, 3));
+    assertEquals(0, calc.multiplicar(5, 0));
+}
+```
+
+Ejemplo correcto:
+```java
+@Test
+public void testMultiplicarDosPorTres() {
+    assertEquals(6, calc.multiplicar(2, 3));
+}
+
+@Test
+public void testMultiplicarCincoPorCero() {
+    assertEquals(0, calc.multiplicar(5, 0));
+}
+```
+
+BLOQUE 7: CLASES
+
+29. Organización de clases
+Ejemplo:
+```java
+public class Ejemplo {
+    public static final String NOMBRE_CONSTANTE = "Ejemplo"; // Constante pública
+    private static final int LIMITE = 100; // Constante privada
+
+    private String atributoPrivado; // Variable privada
+
+    public void metodoPublico() {
+        metodoPrivado();
+    }
+
+    private void metodoPrivado() {
+        // Lógica
+    }
+}
+```
+
+30. Las clases deberían ser pequeñas
+Ejemplo incorrecto:
+```java
+public class Usuario {
+    private String nombre;
+    private String email;
+    private String telefono;
+    private String direccion;
+    private String redesSociales;
+}
+```
+
+Ejemplo correcto:
+```java
+public class Usuario {
+    private String nombre;
+    private String email;
+}
+```
+
+33. Organiza tu código para prepararlo para el cambio
+Ejemplo:
+```java
+public interface Notificador {
+    void enviarMensaje(String mensaje);
+}
+
+public class EmailNotificador implements Notificador {
+    public void enviarMensaje(String mensaje) {
+        System.out.println("Enviando email: " + mensaje);
+    }
+}
+```
+
+35. Utiliza copias de objetos para trabajar con concurrencia
+Ejemplo:
+```java
+public record UsuarioInmutable(String nombre, String email) {
+}
+```
+
